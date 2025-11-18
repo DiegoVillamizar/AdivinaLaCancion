@@ -1,0 +1,18 @@
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+<IfModule mod_mime.c>
+    AddType audio/mpeg .mp3
+    AddType audio/mp4 .m4a
+    AddType audio/ogg .ogg
+    AddType audio/wav .wav
+</IfModule>
+
+AddType audio/mpeg .mp3
+RemoveType .mp3
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "Range"
+Header always set Access-Control-Allow-Methods "GET, OPTIONS"

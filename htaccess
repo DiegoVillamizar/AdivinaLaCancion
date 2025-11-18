@@ -1,0 +1,45 @@
+# Habilitar CORS
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+# Configuración de PHP
+php_flag display_errors On
+php_value error_reporting E_ALL
+
+# Proteger archivos sensibles
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+```
+
+---
+
+## ✅ API Completa con los siguientes endpoints:
+
+### **🔐 Autenticación:**
+- `POST /api/auth/login.php` - Iniciar sesión
+- `POST /api/auth/register.php` - Registrar usuario
+
+### **🎮 Juego:**
+- `GET /api/game/get_songs.php?nivel=Medio&cantidad=10` - Obtener canciones
+- `POST /api/game/save_match.php` - Guardar partida completada
+
+### **📊 Estadísticas:**
+- `GET /api/stats/get_ranking.php?limit=10&usuario_id=1` - Obtener ranking
+
+---
+
+## 🧪 Para probar la API:
+
+Usa **Postman** o **Thunder Client** (extensión de VS Code):
+
+**Ejemplo Login:**
+```
+POST http://localhost/adivina_cancion_api/api/auth/login.php
+Body (JSON):
+{
+    "username": "admin",
+    "password": ""
+}
