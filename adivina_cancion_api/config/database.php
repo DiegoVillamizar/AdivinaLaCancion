@@ -4,18 +4,25 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Manejar preflight requests
+// Manejo preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
 class Database {
-    private $host = "localhost";
-    private $db_name = "adivina_la_cancion";
-    private $username = "root";
-    private $password = ""; // Sin contraseña por defecto en XAMPP
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
     public $conn;
+
+    public function __construct() {
+        $this->host = getenv("DB_HOST");
+        $this->db_name = getenv("DB_NAME");
+        $this->username = getenv("DB_USER");
+        $this->password = getenv("DB_PASS");
+    }
 
     public function getConnection() {
         $this->conn = null;
@@ -42,26 +49,20 @@ class Database {
     }
 }
 
-// Función auxiliar para enviar respuestas JSON
 function sendResponse($success, $message, $data = null, $httpCode = 200) {
     http_response_code($httpCode);
-    
     $response = [
         "success" => $success,
         "message" => $message
     ];
-    
     if ($data !== null) {
         $response["data"] = $data;
     }
-    
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
     exit();
 }
 
-// Función para validar token JWT (implementación simple)
 function validateToken($token) {
-    // Por ahora retornamos true, luego implementaremos JWT real
     return true;
 }
 ?>
