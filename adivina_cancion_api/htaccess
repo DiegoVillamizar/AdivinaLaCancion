@@ -1,18 +1,39 @@
+# ============================
+#   HABILITAR CORS GLOBAL
+# ============================
 <IfModule mod_headers.c>
     Header set Access-Control-Allow-Origin "*"
     Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, HEAD"
     Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization, Range"
     Header set Access-Control-Expose-Headers "Content-Range, Accept-Ranges"
-    header("Content-Type: application/json; charset=UTF-8");
-
 </IfModule>
 
+# ============================
+#   CORS PARA ARCHIVOS MP3
+# ============================
+<FilesMatch "\.(mp3|wav|ogg)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+# ============================
+#   TIPOS DE ARCHIVO
+# ============================
 <IfModule mod_mime.c>
     AddType audio/mpeg .mp3
 </IfModule>
 
+# ============================
+#   DESACTIVAR CACHE
+# ============================
 FileETag none
 Header unset ETag
 Header set Cache-Control "no-cache, no-store, must-revalidate"
 Header set Pragma "no-cache"
 Header set Expires 0
+
+# ============================
+#   MANEJAR OPTIONS (CORS)
+# ============================
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
