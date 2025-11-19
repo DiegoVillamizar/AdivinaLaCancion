@@ -53,6 +53,4 @@ if ($db) {
 ## 🧪 Pasos para probar:
 
 ### **1. Verifica la conexión:**
-Abre en tu navegador:
-```
-http://localhost/adivina_cancion_api/test_connection.php
+```http://localhost/adivina_cancion_api/test_connection.php
